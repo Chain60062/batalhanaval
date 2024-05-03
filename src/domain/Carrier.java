@@ -5,6 +5,7 @@ public class Carrier extends Ship {
     Carrier(){
         this.size = 8;
         this.symbol = 'A';
+        this.coordinates = new Coordinate[size];
     }
 
     public static int getQuantity() {

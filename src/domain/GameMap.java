@@ -1,11 +1,13 @@
 package domain;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 import static java.lang.System.out;
 
 public class GameMap {
-    private char[][] map = new char[26][26];
-    private char[][] displayMap = new char[26][26];
+    private char[][] map = new char[18][18];
+    private char[][] displayMap = new char[18][18];
+    private List<Ship> shipsPlaced = new ArrayList<>();
 
     public GameMap() {
         initializeMaps();
@@ -20,29 +22,40 @@ public class GameMap {
         }
     }
 
-
     public void generateMap() {
+        // TODO: talvez usar strategy pattern para geracao do mapa no futuro
         out.println("Gerando mapa, aguarde...");
-        // botes
+
         for (int i = 0; i < Boat.getQuantity(); i++) {
-            placeShip(new Boat());
+            var newBoat = new Boat();
+            newBoat.placeShipOnMap(this);
+            shipsPlaced.add(newBoat);
         }
-        // // destroyers
+
         for (int i = 0; i < Destroyer.getQuantity(); i++) {
-            placeShip(new Destroyer());
+            var newDestroyer = new Destroyer();
+            newDestroyer.placeShipOnMap(this);
+            shipsPlaced.add(newDestroyer);
         }
-        // // fragatas
+
         for (int i = 0; i < Frigate.getQuantity(); i++) {
-            placeShip(new Frigate());
+            var newFrigate = new Frigate();
+            newFrigate.placeShipOnMap(this);
+            shipsPlaced.add(newFrigate);
         }
-        // submarinos
-        for (int i = 0; i < Submarine.getQuantity(); i++) {
-            placeShip(new Submarine());
-        }
-        // porta avioes
+
         for (int i = 0; i < Carrier.getQuantity(); i++) {
-            placeShip(new Carrier());
+            var newCarrier = new Carrier();
+            newCarrier.placeShipOnMap(this);
+            shipsPlaced.add(newCarrier);
         }
+
+        for (int i = 0; i < Submarine.getQuantity(); i++) {
+            var newSubmarine = new Submarine();
+            newSubmarine.placeShipOnMap(this);
+            shipsPlaced.add(newSubmarine);
+        }
+
         out.println("Mapa gerado.");
     }
 
@@ -63,6 +76,11 @@ public class GameMap {
             System.out.println();
         }
     }
+    public void printShips(){
+        for (Ship ship: shipsPlaced) {
+            out.println(ship.getSymbol());
+        }
+    }
 
     public char[][] getMap() {
         return map;
@@ -71,5 +89,4 @@ public class GameMap {
     public void setMap(char[][] map) {
         this.map = map;
     }
-
 }
