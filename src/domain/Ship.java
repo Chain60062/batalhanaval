@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class Ship {
     protected char symbol;
     protected int size;
-    protected boolean isDestroyed;
+    protected boolean isSunken;
     protected Coordinate[] coordinates;
     private static final Random random = new Random();
 
@@ -19,17 +19,17 @@ public abstract class Ship {
         } while (!isValidPosition(coordinate, map, isVertical));
 
         placeShipOnCoordinates(coordinate, map, isVertical);
-        // System.out.println("Posicao valida para " + this.getSymbol() + " coordenadas" + "x: " + coordinate.getX()
-        //         + ";y " + coordinate.getY());
     }
 
     private void placeShipOnCoordinates(Coordinate coordinate, GameMap map, boolean isVertical) {
         for (int i = 0; i < size; i++) {
+            System.out.println();
             if (isVertical) {
                 map.getMap()[coordinate.getX() + i][coordinate.getY()] = this.getSymbol();
                 this.coordinates[i] = new Coordinate(coordinate.getX() + i, coordinate.getY());// armazenar coordenadas
             } else {
                 map.getMap()[coordinate.getX()][coordinate.getY() + i] = this.getSymbol();
+                this.coordinates[i] = new Coordinate(coordinate.getX(), coordinate.getY() + i);// armazenar coordenadas
             }
         }
     }
@@ -56,15 +56,17 @@ public abstract class Ship {
                 coordinate.getX() + size + 1); i++) {
             for (int j = Math.max(0, coordinate.getY() - 1); j < Math.min(map.getMap()[0].length,
                     coordinate.getY() + (isVertical ? 1 : size + 1)); j++) {
-                if (map.getMap()[i][j] != 'v')
+
+                if (map.getMap()[i][j] != 'v'){
                     return true;
+                }
             }
         }
         return false;
     }
 
-    protected void destroyShip() {
-        this.isDestroyed = true;
+    protected void sinkShip() {
+        this.isSunken = true;
     }
 
     public char getSymbol() {
@@ -83,11 +85,15 @@ public abstract class Ship {
         this.size = size;
     }
 
-    public boolean isDestroyed() {
-        return isDestroyed;
+    public boolean getIsSunken() {
+        return isSunken;
     }
 
-    public void setDestroyed(boolean isDestroyed) {
-        this.isDestroyed = isDestroyed;
+    public Coordinate[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinate[] coordinates) {
+        this.coordinates = coordinates;
     }
 }

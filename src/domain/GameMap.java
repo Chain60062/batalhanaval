@@ -1,13 +1,13 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
 import static java.lang.System.out;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameMap {
-    private char[][] map = new char[18][18];
-    private char[][] displayMap = new char[18][18];
-    private List<Ship> shipsPlaced = new ArrayList<>();
+    private char[][] map = new char[16][16];
+    private char[][] displayMap = new char[16][16];
 
     public GameMap() {
         initializeMaps();
@@ -22,8 +22,8 @@ public class GameMap {
         }
     }
 
-    public void generateMap() {
-        // TODO: talvez usar strategy pattern para geracao do mapa no futuro
+    public List<Ship> generateMapAndGetShipsList() {
+        List<Ship> shipsPlaced = new ArrayList<>();
         out.println("Gerando mapa, aguarde...");
 
         for (int i = 0; i < Boat.getQuantity(); i++) {
@@ -57,6 +57,7 @@ public class GameMap {
         }
 
         out.println("Mapa gerado.");
+        return shipsPlaced;
     }
 
     public void printMap() {
@@ -74,11 +75,6 @@ public class GameMap {
                 System.out.print(map[i][j] + " ");
             }
             System.out.println();
-        }
-    }
-    public void printShips(){
-        for (Ship ship: shipsPlaced) {
-            out.println(ship.getSymbol());
         }
     }
 

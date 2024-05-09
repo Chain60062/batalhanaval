@@ -1,35 +1,82 @@
 package domain;
 
+import static java.lang.System.out;
+
 import java.util.ArrayList;
 import java.util.List;
-import static java.lang.System.out;
 
 public class Player {
     private String name;
-    private int points;
-    private List<Ship> sinkedShips = new ArrayList<>();
+    private List<Ship> shipsSunken = new ArrayList<>();
 
-    private void attack(int row, int col, GameMap map) {
-        char target = map.getMap()[row][col];
-        if (target == 'v') {
-            out.println("Míssel caiu no oceano");
-        } else {
-            out.print("Jogador " + this + " ");
-            switch (target) {
-                case 'A':
-                    out.println("acertou um porta navios");
-                    break;
-                case 'D':
-                    out.println("acertou um destroyer");
-                    break;
-                case 'F':
-                    out.println("acertou uma fragata");
-                    break;
-                case 'B':
-                    out.println("acertou um bote");
+    public Player(String name) {
+        this.name = name;
+    }
+
+    public void attack(int x, int y, Game game) {
+        var coordinate = new Coordinate(x, y);
+        char target = game.getMap()[x][y];
+
+        out.print("Jogador " + this + " ");
+        switch (target) {
+            case 'A':
+                out.println("acertou um porta navios");
+                sinkShip(game, coordinate, false);
+                break;
+            case 'D':
+                out.println("acertou um destroyer");
+                sinkShip(game, coordinate, false);
+                break;
+            case 'F':
+                out.println("acertou uma fragata");
+                sinkShip(game, coordinate, false);
+                break;
+            case 'B':
+                out.println("acertou um bote");
+                sinkShip(game, coordinate, false);
+            default:
+                out.println("Míssel caiu no oceano");
+                break;
+        }
+    }
+
+    private void sinkShip(Game game, Coordinate coordinate, boolean isFirstPlayer) {
+        // checar a coordenada se as coordenadas recebidas são de algum navio existente
+        int playerX = coordinate.getX();
+        int playerY = coordinate.getY();
+
+        System.out.println(game.getShipsPlaced().size());
+        
+        for (Ship currentShip : game.getShipsPlaced()) {
+            for (int j = 0; j < currentShip.getCoordinates().length; j++) {
+                System.out.println(currentShip.getCoordinates()[j]);
+                int shipX = currentShip.getCoordinates()[j].getX();
+                int shipY = currentShip.getCoordinates()[j].getY();
+                // checar se navio atual possuem a coordenada escolhida
+                if (shipX == playerX && shipY == playerY) {
+                    removeShipFromMapAndIncreasePoints(currentShip, game, isFirstPlayer);
+                    return;
+                }
             }
         }
     }
+
+    private void removeShipFromMapAndIncreasePoints(Ship ship, Game game, boolean isFirstPlayer) {
+        for (Coordinate coordinate : ship.coordinates) {
+            if (isFirstPlayer) {
+                game.getMap()[coordinate.getX()][coordinate.getY()] = 'X';
+            } else {
+                game.getMap()[coordinate.getX()][coordinate.getY()] = 'Y';
+            }
+            ship.sinkShip();
+            shipsSunken.add(ship);
+        }
+    }
+
+    public boolean hasWon() {
+        return shipsSunken.size() >= 5;
+    }
+
     @Override
     public String toString() {
         return name.trim();
