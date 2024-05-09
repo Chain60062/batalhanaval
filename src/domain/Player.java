@@ -16,7 +16,7 @@ public class Player {
     public void attack(int x, int y, Game game) {
         var coordinate = new Coordinate(x, y);
         char target = game.getMap()[x][y];
-
+        System.out.println("TARGET: " + target);
         out.print("Jogador " + this + " ");
         switch (target) {
             case 'A':
@@ -34,6 +34,7 @@ public class Player {
             case 'B':
                 out.println("acertou um bote");
                 sinkShip(game, coordinate, false);
+                break;
             default:
                 out.println("Míssel caiu no oceano");
                 break;
