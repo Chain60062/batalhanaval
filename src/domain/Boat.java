@@ -6,6 +6,7 @@ public class Boat extends Ship {
     Boat() {
         this.size = 2;
         this.symbol = 'B';
+        this.name = "Bote";
         this.coordinates = new Coordinate[size];
     }
 

@@ -6,6 +6,7 @@ public class Frigate extends Ship{
     Frigate(){
         this.size = 3;
         this.symbol = 'F';
+        this.name = "Fragata";
         this.coordinates = new Coordinate[size];
     }
 

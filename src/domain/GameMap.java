@@ -55,8 +55,6 @@ public class GameMap {
             newSubmarine.placeShipOnMap(this);
             shipsPlaced.add(newSubmarine);
         }
-
-        out.println("Mapa gerado.");
         return shipsPlaced;
     }
 

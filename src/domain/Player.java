@@ -16,7 +16,6 @@ public class Player {
     public void attack(int x, int y, Game game) {
         var coordinate = new Coordinate(x, y);
         char target = game.getMap()[x][y];
-        System.out.println("TARGET: " + target);
         out.print("Jogador " + this + " ");
         switch (target) {
             case 'A':
@@ -46,11 +45,8 @@ public class Player {
         int playerX = coordinate.getX();
         int playerY = coordinate.getY();
 
-        System.out.println(game.getShipsPlaced().size());
-        
         for (Ship currentShip : game.getShipsPlaced()) {
             for (int j = 0; j < currentShip.getCoordinates().length; j++) {
-                System.out.println(currentShip.getCoordinates()[j]);
                 int shipX = currentShip.getCoordinates()[j].getX();
                 int shipY = currentShip.getCoordinates()[j].getY();
                 // checar se navio atual possuem a coordenada escolhida
@@ -78,8 +74,41 @@ public class Player {
         return shipsSunken.size() >= 5;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Player other = (Player) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
+
     @Override
     public String toString() {
         return name.trim();
+    }
+
+    public List<Ship> getShipsSunken() {
+        return shipsSunken;
     }
 }

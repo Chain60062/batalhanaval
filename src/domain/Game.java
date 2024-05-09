@@ -11,27 +11,53 @@ public class Game {
     private Player firstPlayer;
     private Player secondPlayer;
     private Player currentPlayer;
+    private boolean endGame = false;
     private static final Scanner scanner = new Scanner(System.in);
 
-    
     public Game(Player firstPlayer, Player secondPlayer) {
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
+        currentPlayer = firstPlayer;
     }
 
-    public void initGame(){
-        currentPlayer = firstPlayer;
-        map.printHiddenMap();
-        
-        out.println("Digite uma posição: ");
-        out.println("Linha(Eixo X): ");
-        int x = scanner.nextInt();
-        out.println("Coluna(Eixo Y): ");
-        int y = scanner.nextInt();
-        
-        currentPlayer.attack(x - 1, y - 1, this);
-        out.println("Mapa atualizado");
-        map.printHiddenMap();
+    public void initGame() {
+        while (!endGame) {
+            currentPlayer = currentPlayer.equals(firstPlayer) ? secondPlayer : firstPlayer;
+
+            System.out.println("Vez de " + currentPlayer.getName());
+            
+            map.printHiddenMap();
+
+            out.println("Digite uma posição: ");
+            out.println("Linha(Eixo X): ");
+            int x = scanner.nextInt();
+            out.println("Coluna(Eixo Y): ");
+            int y = scanner.nextInt();
+
+            currentPlayer.attack(x - 1, y - 1, this);
+            out.println("Mapa atualizado");
+            checkIfSomeoneWon();
+        }
+    }
+
+    private void checkIfSomeoneWon() {
+        if (firstPlayer.hasWon()) {
+            out.println(firstPlayer.getName() + " venceu.");
+            endGame = true;
+            printSunkenShips(firstPlayer);
+        }
+        if (secondPlayer.hasWon()) {
+            endGame = true;
+            out.println(firstPlayer.getName() + " venceu.");
+            printSunkenShips(secondPlayer);
+        }
+    }
+
+    private void printSunkenShips(Player player) {
+        System.out.println(player.getName() + " afundou: ");
+        for (Ship ship : player.getShipsSunken()) {
+            System.out.println(ship.getName());
+        }
     }
 
     public void printShips() {

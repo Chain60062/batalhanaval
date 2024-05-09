@@ -4,6 +4,7 @@ import java.util.Random;
 
 public abstract class Ship {
     protected char symbol;
+    protected String name;
     protected int size;
     protected boolean isSunken;
     protected Coordinate[] coordinates;
@@ -23,7 +24,6 @@ public abstract class Ship {
 
     private void placeShipOnCoordinates(Coordinate coordinate, GameMap map, boolean isVertical) {
         for (int i = 0; i < size; i++) {
-            System.out.println();
             if (isVertical) {
                 map.getMap()[coordinate.getX() + i][coordinate.getY()] = this.getSymbol();
                 this.coordinates[i] = new Coordinate(coordinate.getX() + i, coordinate.getY());// armazenar coordenadas
@@ -96,4 +96,17 @@ public abstract class Ship {
     public void setCoordinates(Coordinate[] coordinates) {
         this.coordinates = coordinates;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSunken(boolean isSunken) {
+        this.isSunken = isSunken;
+    }
+    
 }

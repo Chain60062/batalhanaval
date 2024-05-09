@@ -6,6 +6,7 @@ public class Submarine extends Ship{
     Submarine(){
         this.size = 4;
         this.symbol = 'S';
+        this.name = "Submarino";
         this.coordinates = new Coordinate[size];
     }
 

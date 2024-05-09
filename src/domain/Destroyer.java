@@ -5,6 +5,7 @@ public class Destroyer extends Ship{
     Destroyer(){
         this.size = 5;
         this.symbol = 'D';
+        this.name = "Destroyer";
         this.coordinates = new Coordinate[size];        
     }
 

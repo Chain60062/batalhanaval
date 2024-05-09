@@ -5,6 +5,7 @@ public class Carrier extends Ship {
     Carrier(){
         this.size = 8;
         this.symbol = 'A';
+        this.name = "Porta Aviões";
         this.coordinates = new Coordinate[size];
     }
 
