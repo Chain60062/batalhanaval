@@ -34,7 +34,8 @@ public class Game {
             out.println("Coluna(Eixo Y): ");
             int y = scanner.nextInt();
 
-            currentPlayer.attack(x - 1, y - 1, this);
+            currentPlayer.attack(x - 1, y - 1, currentPlayer.equals(firstPlayer), this);
+            
             out.println("Mapa atualizado");
             checkIfSomeoneWon();
         }
@@ -48,7 +49,7 @@ public class Game {
         }
         if (secondPlayer.hasWon()) {
             endGame = true;
-            out.println(firstPlayer.getName() + " venceu.");
+            out.println(secondPlayer.getName() + " venceu.");
             printSunkenShips(secondPlayer);
         }
     }

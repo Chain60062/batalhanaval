@@ -1,5 +1,4 @@
 package domain;
-
 import static java.lang.System.out;
 
 import java.util.ArrayList;
@@ -13,26 +12,26 @@ public class Player {
         this.name = name;
     }
 
-    public void attack(int x, int y, Game game) {
+    public void attack(int x, int y, boolean isFirstPlayer, Game game) {
         var coordinate = new Coordinate(x, y);
         char target = game.getMap()[x][y];
         out.print("Jogador " + this + " ");
         switch (target) {
             case 'A':
                 out.println("acertou um porta navios");
-                sinkShip(game, coordinate, false);
+                sinkShip(game, coordinate, isFirstPlayer);
                 break;
             case 'D':
                 out.println("acertou um destroyer");
-                sinkShip(game, coordinate, false);
+                sinkShip(game, coordinate, isFirstPlayer);
                 break;
             case 'F':
                 out.println("acertou uma fragata");
-                sinkShip(game, coordinate, false);
+                sinkShip(game, coordinate, isFirstPlayer);
                 break;
             case 'B':
                 out.println("acertou um bote");
-                sinkShip(game, coordinate, false);
+                sinkShip(game, coordinate, isFirstPlayer);
                 break;
             default:
                 out.println("Míssel caiu no oceano");
