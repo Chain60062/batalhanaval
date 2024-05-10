@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameMap {
-    private char[][] map = new char[16][16];//mapa 'verdadeiro' do jogo, v para vazio
-    private char[][] displayMap = new char[16][16];//mapa com embarcacoes escondidas, o refere-se a oculto
+    private char[][] map = new char[20][20];//mapa 'verdadeiro' do jogo, v para vazio
+    private char[][] displayMap = new char[20][20];//mapa com embarcacoes escondidas, o refere-se a oculto
 
     public GameMap() {
         initializeMaps();

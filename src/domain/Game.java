@@ -26,24 +26,52 @@ public class Game {
 
             out.println("Vez de " + currentPlayer.getName());
 
-            // map.printMap(true);
+            //map.printMap(true);// mostrar mapa com navios ocultos
             map.printMap(false);
 
             out.println("Digite uma posição: ");
-            
-            
-            out.println("Linha(Eixo X): ");
-            char x = Character.toLowerCase(scanner.next().charAt(0));
-            out.println("Coluna(Eixo Y): ");
-            int y = scanner.nextInt();
-            
+
+            out.println("Linha(a,A,b,B,c,C...): ");
+            char x = verifyCharInput();
+            out.println("Coluna(1,2,3...): ");
+            int y = verifyNumberInput();
+
             currentPlayer.attack(letterToNumber(x), y - 1, currentPlayer.equals(firstPlayer), this);
             out.println("Mapa atualizado");
             checkIfSomeoneWon();
         }
     }
 
-    public static int letterToNumber(char letter) {
+    private char verifyCharInput() {
+        while (true) {
+            String x = scanner.next();
+            if (x.matches("[a-tA-T]")) {
+                System.out.println("Você escolheu " + Character.toLowerCase(x.charAt(0)));
+                return Character.toLowerCase(x.charAt(0));
+            } else {
+                System.out.println("Posição inválida, tem de ser de A até T");
+            }
+        }
+    }
+
+    private int verifyNumberInput() {
+        while (true) {
+            if (scanner.hasNextInt()) { // Check if the next input is an integer
+                int input = scanner.nextInt();
+                if (input >= 1 && input <= 20) { // Check if the input is within the range
+                    return input;
+                } else {
+                    System.out.println("Posição inválida, tem se de 1 a 20.");
+                }
+            } else {
+                System.out.println("Posição não é um número.");
+                scanner.next(); // Consumir input invalido
+            }
+        }
+
+    }
+
+    private int letterToNumber(char letter) {
         return letter - 'a';
     }
 
@@ -61,12 +89,15 @@ public class Game {
     }
 
     private void printSunkenShips(Player player) {
+        out.println("---------------------------------");
         out.println(player.getName() + " afundou: ");
         for (Ship ship : player.getShipsSunken()) {
-            out.println(ship.getName());
+            out.println(1 + " " + ship.getName());
         }
+        out.println("---------------------------------");
     }
-    //getters e setters
+
+    // getters e setters
     public char[][] getMap() {
         return map.getMap();
     }
