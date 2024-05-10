@@ -65,9 +65,9 @@ public class Player {
             } else {
                 game.getMap()[coordinate.getX()][coordinate.getY()] = 'Y';
             }
-            ship.sinkShip();
-            shipsSunken.add(ship);
         }
+        ship.sinkShip();
+        shipsSunken.add(ship);
     }
 
     public boolean hasWon() {
