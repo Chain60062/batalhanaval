@@ -21,23 +21,38 @@ public class Game {
     }
 
     public void initGame() {
+        printShips();
         while (!endGame) {
             currentPlayer = currentPlayer.equals(firstPlayer) ? secondPlayer : firstPlayer;
 
             System.out.println("Vez de " + currentPlayer.getName());
-            
-            map.printHiddenMap();
+
+            // map.printMap(true);
+            map.printMap(false);
+
 
             out.println("Digite uma posição: ");
             out.println("Linha(Eixo X): ");
             int x = scanner.nextInt();
             out.println("Coluna(Eixo Y): ");
             int y = scanner.nextInt();
+            currentPlayer.attack(x, y, currentPlayer.equals(firstPlayer), this);
 
-            currentPlayer.attack(x - 1, y - 1, currentPlayer.equals(firstPlayer), this);
-            
             out.println("Mapa atualizado");
             checkIfSomeoneWon();
+        }
+    }
+
+    public void printShips() {
+        for (Ship ship : shipsPlaced) {
+            System.out.println("Coordinates for " + ship.getSymbol());
+            System.out.println("---------------------------------");
+            for (Coordinate coordinate : ship.getCoordinates()) {
+                System.out.print(" x: "+coordinate.getX());
+                System.out.print(" y: "+coordinate.getY());
+                System.out.println();
+            }
+            System.out.println("---------------------------------");
         }
     }
 
@@ -61,14 +76,12 @@ public class Game {
         }
     }
 
-    public void printShips() {
-        for (Ship ship : shipsPlaced) {
-            out.println(ship.getSymbol());
-        }
-    }
-
     public char[][] getMap() {
         return map.getMap();
+    }
+
+    public char[][] getDisplayMap() {
+        return map.getDisplayMap();
     }
 
     public List<Ship> getShipsPlaced() {

@@ -58,19 +58,26 @@ public class GameMap {
         return shipsPlaced;
     }
 
-    public void printMap() {
-        for (int i = 0; i < displayMap.length; i++) {
-            for (int j = 0; j < displayMap[0].length; j++) {
-                System.out.print(displayMap[i][j] + " ");
+    public void printMap(boolean isDisplay) {
+        var mapToPrint = isDisplay ? displayMap : map;
+        // Print the row index in the first row
+        for (int i = 0; i < mapToPrint.length; i++) {
+            if(i == 0){
+                out.print("   ");
             }
-            System.out.println();
+            if(i <= 9){
+                System.out.printf(" %d ", i);
+            }else{
+                System.out.printf("%d ", i);
+            }
         }
-    }
+        System.out.println();
 
-    public void printHiddenMap() {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                System.out.print(map[i][j] + " ");
+
+        for (int i = 0; i < mapToPrint.length; i++) {
+            System.out.printf("%2d ", i); 
+            for (int j = 0; j < mapToPrint[0].length; j++) {
+                System.out.print(" " + mapToPrint[i][j] + " ");
             }
             System.out.println();
         }
@@ -78,6 +85,10 @@ public class GameMap {
 
     public char[][] getMap() {
         return map;
+    }
+    
+    public char[][] getDisplayMap() {
+        return displayMap;
     }
 
     public void setMap(char[][] map) {

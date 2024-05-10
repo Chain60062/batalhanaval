@@ -1,4 +1,5 @@
 package domain;
+
 import static java.lang.System.out;
 
 import java.util.ArrayList;
@@ -33,6 +34,10 @@ public class Player {
                 out.println("acertou um bote");
                 sinkShip(game, coordinate, isFirstPlayer);
                 break;
+            case 'S':
+                out.println("acertou um submarino");
+                sinkShip(game, coordinate, isFirstPlayer);
+                break;
             default:
                 out.println("Míssel caiu no oceano");
                 break;
@@ -61,8 +66,10 @@ public class Player {
         for (Coordinate coordinate : ship.coordinates) {
             if (isFirstPlayer) {
                 game.getMap()[coordinate.getX()][coordinate.getY()] = 'X';
+                game.getDisplayMap()[coordinate.getX()][coordinate.getY()] = 'X';
             } else {
                 game.getMap()[coordinate.getX()][coordinate.getY()] = 'Y';
+                game.getDisplayMap()[coordinate.getX()][coordinate.getY()] = 'Y';
             }
         }
         ship.sinkShip();
