@@ -1,5 +1,6 @@
 package domain;
 
+//submarino
 public class Submarine extends Ship{
     private final static int quantity = 4;
  

@@ -1,5 +1,6 @@
 package domain;
 
+//bote
 public class Boat extends Ship {
     private final static int quantity = 6;
 

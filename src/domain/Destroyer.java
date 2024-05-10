@@ -1,4 +1,6 @@
 package domain;
+
+//destroyer
 public class Destroyer extends Ship{
     private final static int quantity = 3;
 

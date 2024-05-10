@@ -1,8 +1,10 @@
 package domain;
-public class Carrier extends Ship {
+
+//porta-avioes
+public class AircraftCarrier extends Ship {
     private final static int quantity = 2;
 
-    Carrier(){
+    AircraftCarrier(){
         this.size = 8;
         this.symbol = 'A';
         this.name = "Porta Aviões";

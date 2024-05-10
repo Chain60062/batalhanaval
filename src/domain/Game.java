@@ -1,6 +1,6 @@
 package domain;
 
-import static java.lang.System.out;
+import static java.lang.System.out;//para usar metodos do out diretamente(ex: out.printf) sem ter de referenciar System.out
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,39 +21,30 @@ public class Game {
     }
 
     public void initGame() {
-        printShips();
         while (!endGame) {
             currentPlayer = currentPlayer.equals(firstPlayer) ? secondPlayer : firstPlayer;
 
-            System.out.println("Vez de " + currentPlayer.getName());
+            out.println("Vez de " + currentPlayer.getName());
 
             // map.printMap(true);
             map.printMap(false);
 
-
             out.println("Digite uma posição: ");
+            
+            
             out.println("Linha(Eixo X): ");
-            int x = scanner.nextInt();
+            char x = Character.toLowerCase(scanner.next().charAt(0));
             out.println("Coluna(Eixo Y): ");
             int y = scanner.nextInt();
-            currentPlayer.attack(x, y, currentPlayer.equals(firstPlayer), this);
-
+            
+            currentPlayer.attack(letterToNumber(x), y - 1, currentPlayer.equals(firstPlayer), this);
             out.println("Mapa atualizado");
             checkIfSomeoneWon();
         }
     }
 
-    public void printShips() {
-        for (Ship ship : shipsPlaced) {
-            System.out.println("Coordinates for " + ship.getSymbol());
-            System.out.println("---------------------------------");
-            for (Coordinate coordinate : ship.getCoordinates()) {
-                System.out.print(" x: "+coordinate.getX());
-                System.out.print(" y: "+coordinate.getY());
-                System.out.println();
-            }
-            System.out.println("---------------------------------");
-        }
+    public static int letterToNumber(char letter) {
+        return letter - 'a';
     }
 
     private void checkIfSomeoneWon() {
@@ -70,12 +61,12 @@ public class Game {
     }
 
     private void printSunkenShips(Player player) {
-        System.out.println(player.getName() + " afundou: ");
+        out.println(player.getName() + " afundou: ");
         for (Ship ship : player.getShipsSunken()) {
-            System.out.println(ship.getName());
+            out.println(ship.getName());
         }
     }
-
+    //getters e setters
     public char[][] getMap() {
         return map.getMap();
     }

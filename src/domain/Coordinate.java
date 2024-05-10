@@ -1,5 +1,6 @@
 package domain;
 
+//representa uma coordenada
 public class Coordinate {
     private int x;
     private int y;

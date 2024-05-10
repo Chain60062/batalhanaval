@@ -2,6 +2,8 @@ package domain;
 
 import java.util.Random;
 
+/*classes abstratas nao podem ser instanciadas, servem somente para heranca, porem podem ter 
+implementacoes padrao para metodos, diferente das interfaces*/
 public abstract class Ship {
     protected char symbol;
     protected String name;
@@ -12,11 +14,12 @@ public abstract class Ship {
 
     public void placeShipOnMap(GameMap map) {
         Coordinate coordinate = new Coordinate();
-        boolean isVertical;
+        boolean isVertical;// auto explicativo
         do {
             isVertical = random.nextBoolean();
-            coordinate.setX(random.nextInt(map.getMap().length));// 0 - 16
-            coordinate.setY(random.nextInt(map.getMap()[0].length));// 0 - 16
+            // coordenadas aleatorias
+            coordinate.setX(random.nextInt(map.getMap().length));
+            coordinate.setY(random.nextInt(map.getMap()[0].length));
         } while (!isValidPosition(coordinate, map, isVertical));
 
         placeShipOnCoordinates(coordinate, map, isVertical);
@@ -34,6 +37,7 @@ public abstract class Ship {
         }
     }
 
+    // checar se posicao e valida
     private boolean isValidPosition(Coordinate coordinate, GameMap map, boolean isVertical) {
         if (isVertical) {
             // checar se o tamanho ira sair do mapa verticalmente
@@ -51,13 +55,14 @@ public abstract class Ship {
         return true;
     }
 
+    // checa se navios estao pertos demais(atualmente nao funciona tao bem)
     private boolean areShipsTooClose(Coordinate coordinate, GameMap map, boolean isVertical) {
         for (int i = Math.max(0, coordinate.getX() - 1); i < Math.min(map.getMap().length,
                 coordinate.getX() + size + 1); i++) {
             for (int j = Math.max(0, coordinate.getY() - 1); j < Math.min(map.getMap()[0].length,
                     coordinate.getY() + (isVertical ? 1 : size + 1)); j++) {
 
-                if (map.getMap()[i][j] != 'v'){
+                if (map.getMap()[i][j] != 'v') {
                     return true;
                 }
             }
@@ -65,6 +70,7 @@ public abstract class Ship {
         return false;
     }
 
+    // getters e setters
     protected void sinkShip() {
         this.isSunken = true;
     }
@@ -108,5 +114,4 @@ public abstract class Ship {
     public void setSunken(boolean isSunken) {
         this.isSunken = isSunken;
     }
-    
 }

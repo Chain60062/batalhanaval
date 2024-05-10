@@ -1,9 +1,10 @@
 package domain;
 
-public class Frigate extends Ship{
+//fragata
+public class Frigate extends Ship {
     private final static int quantity = 5;
 
-    Frigate(){
+    Frigate() {
         this.size = 3;
         this.symbol = 'F';
         this.name = "Fragata";
