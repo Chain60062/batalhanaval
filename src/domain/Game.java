@@ -26,8 +26,8 @@ public class Game {
 
             out.println("Vez de " + currentPlayer.getName());
 
-            //map.printMap(true);// mostrar mapa com navios ocultos
-            map.printMap(false);
+            map.printMap(true);// mostrar mapa com navios ocultos
+            //map.printMap(false);
 
             out.println("Digite uma posição: ");
 
